@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway|Roboto&display=swap");
+
+.main {
+    font-family: "Raleway", sans-serif;
+    width: 100%;
+    height: 45em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.container {
+    height: 8em;
+    width: 8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    margin: 1em 1em;
+}
+
+table {
+    width: 95%;
+    height: 19em;
+    background-color: #ffffff;
+    border-collapse: collapse;
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+    color: #000000;
+
+}
+  
+table td, table th {
+    text-align: center;
+    max-width: 0.5em;
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+    background-color: grey;
+    padding: 10px;
+  }
+
+  table tr {
+      min-height: 3em;
+  }
+  
+  table thead {
+      color: white;
+    background-color: #8b8b0a;
+    
+  }
+  
+
+  .tg  {
+      visibility: hidden;
+      width: 95%;
+      border-collapse:collapse;
+      border-spacing:0;
+  }
+.tg td{
+    font-family:Arial, sans-serif;
+    font-size:14px;padding:10px 20px;
+    border-style:solid;border-width:1px;
+    overflow:hidden;
+    word-break:normal;
+    border-color:black;
+}
+.tg th {
+    font-family:Arial, sans-serif;
+    font-size:14px;
+    font-weight:normal;
+    padding:10px 20px;
+    border-style:solid;
+    border-width:1px;
+    overflow:hidden;
+    word-break:normal;
+    border-color:black;
+}
+
+.tg .columns{
+    font-family: "Raleway", sans-serif;
+    background-color: white;
+    text-align:left;
+    vertical-align:top
+}
+
+
+
