@@ -79,7 +79,11 @@ for (let i = 1; i <= cellElems.length - 4; i++) {
     cellElems[i].addEventListener("click", function () {
         hoursTableElem.style.visibility = "visible";
         for (let i = 1; i <= cellElems.length - 4; i++) {
-            cellElems[i].style.backgroundColor = "white";
+            if (calDays[i - 1]._day.getDay() != 0 && calDays[i - 1]._day.getDay() != 6) {
+                cellElems[i].style.backgroundColor = "white";
+            } else {
+                cellElems[i].style.backgroundColor = "lightgrey";
+            }
 
         }
         cellElems[i].style.backgroundColor = "lightblue";
