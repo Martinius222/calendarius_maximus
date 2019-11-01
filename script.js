@@ -5,8 +5,11 @@ var hoursTableElem = document.getElementById("hoursTable");
 var modalElem = document.getElementById("modalBackground");
 var orderModalElem = document.getElementById("orderModal");
 var confirmBtnElem = document.getElementById("confirmButton");
+var confModalElem = document.getElementById("confirmationModal");
 var dateFieldElem = document.getElementById("dateField");
 var timeFieldElem = document.getElementById("timeField");
+var confDateElem = document.getElementById("confirmedDate");
+var confTimeElem = document.getElementById("confirmedTime");
 
 class Cell {
     constructor(dayElem) {
@@ -61,6 +64,12 @@ class Cell {
 
 
 };
+ class Order {
+     constructor(service, fullDate) {
+         this._slcService = service;
+         this._slcDate = fullDate;
+     }
+ }
 
 var dayNames = ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"];
 
@@ -69,6 +78,10 @@ var monthNames = ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "
 
 var calDays = [];
 var dataBuffer = [];
+let slcDay;
+let slcDate;
+let slcMonth;
+let slcHour;
 
 
 
@@ -114,10 +127,10 @@ for (let i = 1; i <= cellElems.length - 4; i++) {
 
             } else {
                 hoursCells[n].addEventListener("click", function(){
-                    let slcDay;
-                    let slcDate;
-                    let slcMonth;
-                    let slcHour;
+                    // let slcDay;
+                    // let slcDate;
+                    // let slcMonth;
+                    // let slcHour;
                     modalElem.style.display = "flex";
                     orderModalElem.style.display = "block";
 
@@ -146,12 +159,42 @@ for (let i = 1; i <= cellElems.length - 4; i++) {
 
 }
 
+
+
 modalElem.addEventListener("click", function(event){
     if (modalElem !== event.target) return;
     modalElem.style.display = "none";
     orderModalElem.style.display = "none";
     
 })
+
+var testExportArray = []
+
+confirmBtnElem.addEventListener("click", function(){
+    orderModalElem.style.display = "none";
+    confModalElem.style.display = "flex";
+
+    let joinedDate = slcDay + " " + slcDate + " " + slcMonth + " Kl. " + slcHour;
+    confDateElem.innerHTML = joinedDate
+    confTimeElem.innerHTML = "kl. " + slcHour;
+
+    testExportArray.push(new Order("Akupunktur", joinedDate));
+
+    console.log("Instanciated " + testExportArray);
+    myJSON = JSON.stringify(testExportArray);
+    console.log("Stringyfied " + myJSON);
+    localStorage.setItem("SKtest", myJSON);
+    console.log("Sent to localstorage");
+
+
+})
+
+// // testJSON = new Order("Test Service", "Test Date");
+// console.log("Instanciated " + testExportArray);
+// myJSON = JSON.stringify(testExportArray);
+// console.log("Stringyfied " + myJSON);
+// localStorage.setItem("SKtest", myJSON);
+// console.log("Sent to localstorage");
 
 function populateCalendar(n) {
     if (n > 240) {
@@ -182,10 +225,15 @@ for (let i = 1; i <= cellElems.length - 4; i++) {
 /* TO DO
 // Add same script to this index.html and bookings overview html file thus linking
 // functionality and add persistence through JSON and Local Storage.
-// May the source be with us all....
+// May the source be with us all.... 
 // 
-// To aid data port to confirmation and further to orders page use arrays with ass "buffers"
-// for current data. This way one can simply remove data from buffer array if
-// confirmation window is closed and not confirmed. If confirmed data in buffer array is
-// forwarded instead. Data in array buffer array should be day, date, month and selected hour
+// Add rendering of more orders on orders page (iterate imported array and render boxes)
+//
+// KNOWN BUGS
+// User can click out and remove confirmation modal box (need to remove modal background
+// event listener)
+// 
+// 
+// 
+// 
 */
