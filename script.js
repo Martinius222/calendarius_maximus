@@ -10,14 +10,14 @@ class Cell {
         this._fullyBooked = false;
         this._clicked = false;
         this._hours = [
-            { time: "08.00 - 08.50", booked: false },
-            { time: "09.00 - 09.50", booked: false },
-            { time: "10.00 - 10.50", booked: false },
-            { time: "11.00 - 11.50", booked: false },
-            { time: "12.00 - 12.50", booked: false },
-            { time: "13.00 - 13.50", booked: false },
-            { time: "14.00 - 14.50", booked: false },
-            { time: "15.00 - 15.50", booked: false },
+            { time: "08.00", booked: false },
+            { time: "09.00", booked: false },
+            { time: "10.00", booked: false },
+            { time: "11.00", booked: false },
+            { time: "12.00", booked: false },
+            { time: "13.00", booked: false },
+            { time: "14.00", booked: false },
+            { time: "15.00", booked: false },
         ];
     }
 
@@ -77,9 +77,15 @@ for (let i = 1; i <= cellElems.length - 4; i++) {
     }
 
     cellElems[i].addEventListener("click", function () {
-        hoursTableElem.style.visibility = "visible";
+
+        if (calDays[i - 1]._day.getDay() != 0 && calDays[i - 1]._day.getDay() != 6) {
+            hoursTableElem.style.visibility = "visible";
+        } else {
+            hoursTableElem.style.visibility = "hidden";
+        }
+
         for (let i = 1; i <= cellElems.length - 4; i++) {
-            if (calDays[i - 1]._day.getDay() != 0 && calDays[i - 1]._day.getDay() != 6) {
+            if (calDays[i - 1]._day.getDay() != 0 && calDays[i - 1]._day.getDay() != 6 && calDays[i -1]._totHoursBooked != 8) {
                 cellElems[i].style.backgroundColor = "white";
             } else {
                 cellElems[i].style.backgroundColor = "lightgrey";
@@ -120,6 +126,22 @@ function populateCalendar(n) {
         }
     }
 }
+
+populateCalendar(240);
+
+for (let i = 1; i <= cellElems.length - 4; i++) {
+    for (let n = 0; n < hoursCells.length; n++) {
+        if (calDays[i - 1]._hours[n].booked == true) {
+            calDays[i -1]._totHoursBooked++;
+            
+        }
+    }
+
+    if (calDays[i -1]._totHoursBooked == 8) {
+        cellElems[i].style.backgroundColor = "lightgrey";
+    }
+}
+
 
 
 
