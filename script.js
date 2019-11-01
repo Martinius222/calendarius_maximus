@@ -2,6 +2,11 @@ var cellElems = document.getElementsByClassName("cellSpace");
 var hoursCells = document.getElementsByClassName("col1");
 var appointmentStatusCell = document.getElementsByClassName("col2");
 var hoursTableElem = document.getElementById("hoursTable");
+var modalElem = document.getElementById("modalBackground");
+var orderModalElem = document.getElementById("orderModal");
+var confirmBtnElem = document.getElementById("confirmButton");
+var dateFieldElem = document.getElementById("dateField");
+var timeFieldElem = document.getElementById("timeField");
 
 class Cell {
     constructor(dayElem) {
@@ -63,6 +68,9 @@ var monthNames = ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "
     "Oktober", "November", "Desember"];
 
 var calDays = [];
+var dataBuffer = [];
+
+
 
 for (let i = 1; i <= cellElems.length - 4; i++) {
 
@@ -93,6 +101,7 @@ for (let i = 1; i <= cellElems.length - 4; i++) {
 
         }
         cellElems[i].style.backgroundColor = "lightblue";
+        
         for (let n = 0; n < hoursCells.length; n++) {
             hoursCells[n].innerHTML = calDays[i - 1]._hours[n].time;
 
@@ -103,8 +112,28 @@ for (let i = 1; i <= cellElems.length - 4; i++) {
                 hoursCells[n].style.backgroundColor = "grey";
                 hoursCells[n].style.color = "white";
 
-
             } else {
+                hoursCells[n].addEventListener("click", function(){
+                    let slcDay;
+                    let slcDate;
+                    let slcMonth;
+                    let slcHour;
+                    modalElem.style.display = "flex";
+                    orderModalElem.style.display = "block";
+
+                    slcDay = dayNames[calDays[i - 1]._day.getDay()];
+                    slcDate = calDays[i - 1]._day.getDate();
+                    slcMonth = monthNames[calDays[i - 1]._day.getMonth()];
+                    slcHour = calDays[i - 1]._hours[n].time
+                    dateFieldElem.innerHTML = slcDay + " " +
+                                              slcDate + " " +
+                                              slcMonth;
+                    timeFieldElem.innerHTML = "kl. " + slcHour;
+
+                    console.log(slcDay);
+                    console.log(slcDate);
+                });
+
                 appointmentStatusCell[n].innerHTML = "LEDIG";
                 appointmentStatusCell[n].style.backgroundColor = "white";
                 appointmentStatusCell[n].style.color = "black";
@@ -116,6 +145,13 @@ for (let i = 1; i <= cellElems.length - 4; i++) {
     })
 
 }
+
+modalElem.addEventListener("click", function(event){
+    if (modalElem !== event.target) return;
+    modalElem.style.display = "none";
+    orderModalElem.style.display = "none";
+    
+})
 
 function populateCalendar(n) {
     if (n > 240) {
@@ -143,38 +179,13 @@ for (let i = 1; i <= cellElems.length - 4; i++) {
 }
 
 
-
-
-// test = new Cell(new Date(2019, 9, 30));
-// console.log(test);
-
-// test = new Cell(1)
-// console.log(test.printCellHeader());
-// test.printCellHours();
-
-// // var testD = new Date(2019, 9, 0);
-// // console.log(testD)
-
-// var testDates = [];
-// for (let n = 1; n <= 31; n++) {
-//     testDates.push(new Date(2019, 9, n))
-
-// }
-
-// for (let p = 0; p < testDates.length; p++) {
-//     console.log(dayNames[testDates[p].getDay()] + " " + 
-//     testDates[p].getDate() + " " + monthNames[testDates[p].getMonth()] + " " +
-//                 testDates[p].toLocaleString("en-GB"))
-
-// }
-
-// // for (let p = 0; p < testDates.length; p++) {
-// //     console.log(dayNames[testDates[p].getDay()])
-
-// // }
-
 /* TO DO
 // Add same script to this index.html and bookings overview html file thus linking
 // functionality and add persistence through JSON and Local Storage.
 // May the source be with us all....
+// 
+// To aid data port to confirmation and further to orders page use arrays with ass "buffers"
+// for current data. This way one can simply remove data from buffer array if
+// confirmation window is closed and not confirmed. If confirmed data in buffer array is
+// forwarded instead. Data in array buffer array should be day, date, month and selected hour
 */

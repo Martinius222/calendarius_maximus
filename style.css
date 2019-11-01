@@ -3,7 +3,7 @@
 .main {
     font-family: "Raleway", sans-serif;
     width: 100%;
-    height: 45em;
+    height: 40em;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -85,6 +85,39 @@ table td, table th {
     background-color: white;
     text-align:left;
     vertical-align:top
+}
+
+#orderModal {
+    display: none;
+    position: absolute;
+    text-align: center;
+    width: 95%;
+    height: 60%;
+    bottom: 8em;
+    border: solid black 3px;
+    background-color: brown;
+}
+
+#confirmButton {
+    font-family: "Raleway", sans-serif;
+    font-weight: bold;
+    font-size: 1em;
+    width: 30%;
+    height: 4em;
+    border: solid black 2px;
+    background-color: lightblue;
+    outline: none;
+    
+}
+
+#modalBackground {
+    display: none;
+    justify-content: center;
+    background-color: rgba(192, 192, 192, 0.5);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
 }
 
 
